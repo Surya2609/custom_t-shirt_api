@@ -1,10 +1,5 @@
-# models/customer.py
-import uuid
-from sqlalchemy import Column, String, Float, DateTime
-from sqlalchemy.dialects.mysql import CHAR
+from sqlalchemy import Column, String, Integer, TIMESTAMP, text
 from app.db.database import Base
-from sqlalchemy import Integer
-from sqlalchemy.sql import func 
 
 class User(Base):
     __tablename__ = "users"
@@ -17,5 +12,13 @@ class User(Base):
     shippingAddress = Column(String(255), nullable=True)
     email = Column(String(255), unique=True, index=True, nullable=False)
     password = Column(String(255), nullable=False)
-    created_at = Column(DateTime(timezone=True), server_default=func.now())
-    updated_at = Column(DateTime(timezone=True), onupdate=func.now(), server_default=func.now())
+
+    created_at = Column(
+        TIMESTAMP,
+        server_default=text("CURRENT_TIMESTAMP")
+    )
+    updated_at = Column(
+        TIMESTAMP,
+        server_default=text("'0000-00-00 00:00:00'"),
+        server_onupdate=text("CURRENT_TIMESTAMP")
+    )

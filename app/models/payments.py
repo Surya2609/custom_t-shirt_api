@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DECIMAL, ForeignKey, DateTime, Enum
+from sqlalchemy import Column, Integer, String, DECIMAL, ForeignKey, DateTime, Enum, TIMESTAMP, text
 from sqlalchemy.sql import func
 from sqlalchemy.dialects.mysql import ENUM as MySQLEnum
 from app.db.database import Base
@@ -12,4 +12,7 @@ class Payment(Base):
     transaction_id = Column(String(100))
     amount = Column(DECIMAL(10, 2), nullable=False)
     status = Column(String(100))
-    payment_date = Column(DateTime(timezone=True), server_default=func.now())
+    payment_date = Column(
+            TIMESTAMP,
+            server_default=text("CURRENT_TIMESTAMP")
+        )

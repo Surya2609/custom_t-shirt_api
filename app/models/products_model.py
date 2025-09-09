@@ -13,7 +13,7 @@
 #     # user_id = Column(Integer, ForeignKey("users.id"))  # ✅ Link product to user
 
 
-from sqlalchemy import Column, Integer, String, Text, DECIMAL, ForeignKey, DateTime
+from sqlalchemy import Column, Integer, String, Text, DECIMAL, ForeignKey, DateTime, text, TIMESTAMP
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
 from app.db.database import Base
@@ -29,6 +29,6 @@ class Product(Base):
     category_id = Column(Integer, ForeignKey("categories.id"), nullable=False)
     # stock = Column(Integer, default=0)
     
-    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    created_at = Column(TIMESTAMP, server_default=text('CURRENT_TIMESTAMP'))
 
     category = relationship("Category", back_populates="products")
