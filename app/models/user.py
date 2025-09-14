@@ -15,10 +15,12 @@ class User(Base):
 
     created_at = Column(
         TIMESTAMP,
-        server_default=text("CURRENT_TIMESTAMP")
+        server_default=text("CURRENT_TIMESTAMP"),
+        nullable=False
     )
     updated_at = Column(
         TIMESTAMP,
-        server_default=text("'0000-00-00 00:00:00'"),
-        server_onupdate=text("CURRENT_TIMESTAMP")
+        server_default=text("CURRENT_TIMESTAMP"),   # ✅ good default
+        server_onupdate=text("CURRENT_TIMESTAMP"),
+        nullable=False
     )
